@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 To use the Gezer Bot script, run the following command:
 
-python Gezer_bot.py <username> <password> <id> <cours_id> <moed>
+python Gezer_bot.py  {username} {password} {id} {course_id} {moed}
 
 - `<username>` - Your Gezer username
 - `<password>` - Your Gezer password
