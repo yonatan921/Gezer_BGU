@@ -2,14 +2,6 @@
 
 Gezer Bot is a Python script that uses Selenium to automate the process of downloading exams from the Gezer website.
 
-## Prerequisites
-
-Before running the script, you must have the following installed:
-
-- Python 3.x
-- Selenium
-- Chrome WebDriver
-
 ## Requirements
 
 To run the Gezer Bot script, you must have the following packages installed:
