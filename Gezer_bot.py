@@ -73,12 +73,12 @@ class GezerBot:
         self.driver.find_element(By.XPATH, value="/html/body/div[6]/div/div[1]/form/input[1]").click()
 
 
-def moed_validation(c: str):
-    if c in {'1', 'a', 'A'}:
+def moed_validation(moed: str):
+    if moed in {'1', 'a', 'A'}:
         return '1'
-    if c in {'2', 'b', 'B'}:
+    if moed in {'2', 'b', 'B'}:
         return '2'
-    if c in {'3', 'c', 'C'}:
+    if moed in {'3', 'c', 'C'}:
         return '3'
     raise Exception("illegal Moed")
 
