@@ -23,10 +23,10 @@ python Gezer_bot.py  {username} {password} {id} {course_id} {moed}
 - `<password>` - Your Gezer password
 - `<id>` - Your ID
 - `<cours_id>` - The ID of the course the exam is for
-- `<moed>` - The moed (exam session) of the exam (e.g. A, B, C, etc.)
+- `<moed>` - The moed (exam session) of the exam (e.g. 1, 2, 3, etc.)
 
 For example:
 
-python ./Gezer_bot.py johndoe mypassword 12345 67890 A
+python ./Gezer_bot.py johndoe mypassword 12345 67890 1
 
 The script will then automate the process of logging in to the Gezer website, navigating to the exam page, and downloading the exam. The downloaded exam will be saved to your current working directory.
