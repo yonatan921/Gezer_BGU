@@ -45,7 +45,7 @@ class GezerBot:
         rows = table.find_elements(By.TAG_NAME, "tr")
         for row in rows:
             cells = row.find_elements(By.TAG_NAME, "td")
-            if len(cells) > 5:
+            if len(cells) > 5 and cells[5].text == "":
                 cells[5].click()
                 break
 
