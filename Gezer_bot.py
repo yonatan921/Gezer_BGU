@@ -73,19 +73,28 @@ class GezerBot:
         self.driver.find_element(By.XPATH, value="/html/body/div[6]/div/div[1]/form/input[1]").click()
 
 
+def moed_validation(c: str):
+    if c in {'1', 'a', 'A'}:
+        return '1'
+    if c in {'2', 'b', 'B'}:
+        return '2'
+    if c in {'3', 'c', 'C'}:
+        return '3'
+
+
 def main():
     parser = argparse.ArgumentParser(description='Gezer script, insert <user_name> <password> <id> <course_id>')
     parser.add_argument("user_name", help="student username")
     parser.add_argument("password", help="student password")
     parser.add_argument("id", help="student id")
     parser.add_argument("course_id", help="course id")
-    parser.add_argument("moed", help="insert 1 for moed A, 2 for moed B and 3 for moed c")
+    parser.add_argument("moed", help="insert 1 for moed A, 2 for moed B and 3 for moed C")
     args = parser.parse_args()
     bot = GezerBot()  # init bot
     bot.open()  # connect to Gezer website
     bot.login(args.user_name, args.password, args.id)  # login
     bot.find_random_test()
-    bot.get_test(args.course_id, args.moed)  # download test
+    bot.get_test(args.course_id, moed_validation(args.moed))  # download test
 
 
 if __name__ == "__main__":
