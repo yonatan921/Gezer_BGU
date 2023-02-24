@@ -80,6 +80,7 @@ def moed_validation(c: str):
         return '2'
     if c in {'3', 'c', 'C'}:
         return '3'
+    raise Exception("illegal Moed")
 
 
 def main():
