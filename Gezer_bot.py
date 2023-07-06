@@ -23,10 +23,11 @@ class GezerBot:
 
     def login(self, user_name: str, password: str, student_id: str) -> None:
         """
-        Login to Gezer website
-        :param student_id:
-        :param password: Student's password
-        :param user_name: Student's username
+        Login to Gezer system
+
+        :param user_name: Gezer user name
+        :param password: Gezer password
+        :param student_id: Personal ID
         :return: None
         """
         # --- Login ------
@@ -34,7 +35,6 @@ class GezerBot:
         self.driver.find_element(By.ID, value='pass').send_keys(password)
         self.driver.find_element(By.ID, value='id').send_keys(student_id)
         self.driver.find_element(By.NAME, value="ok").click()
-        self.driver.find_element(By.NAME, value="agree").click()
 
     def find_random_test(self) -> None:
         """
@@ -49,11 +49,13 @@ class GezerBot:
                 cells[5].click()
                 break
 
-    def get_test(self, course_id: str, moed: str) -> None:
+    def get_test(self, course_id: str, moed: str, year, semester) -> None:
         """
         Download the test
-        :param moed: 1 2 3 depend on the test of the semester
-        :param course_id: The desired course number
+        :param course_id:
+        :param moed:
+        :param year:
+        :param semester:
         :return: None
         """
         download_path = '/html/body/div[6]/div/div[1]/form/input[2]'
@@ -62,9 +64,12 @@ class GezerBot:
         encoded_message = download_bottom.get_attribute("value")
         decoded_message = base64.b64decode(encoded_message).decode('utf-8')
         decoded_list = decoded_message.split(":")
-        # insert the course you want to check
+        # insert the course you want to
+        decoded_list[1] = year
+        decoded_list[2] = semester
         decoded_list[-3] = course_id
         decoded_list[-1] = moed
+
         decoded_message = ":".join(decoded_list)
         # encode the new message
         encoded_message = base64.b64encode(decoded_message.encode('utf-8')).decode()
@@ -73,30 +78,35 @@ class GezerBot:
         self.driver.find_element(By.XPATH, value="/html/body/div[6]/div/div[1]/form/input[1]").click()
 
 
-def moed_validation(moed: str):
+def moed_validation(moed: str) -> str:
     if moed in {'1', 'a', 'A'}:
         return '1'
     if moed in {'2', 'b', 'B'}:
         return '2'
     if moed in {'3', 'c', 'C'}:
         return '3'
+    if moed in {"11", "aa", "AA"}:
+        return "11"
     raise Exception("illegal Moed")
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Gezer script, insert <user_name> <password> <id> <course_id>')
+    parser = argparse.ArgumentParser(description='Gezer script, insert <user_name> <password> <id> <year> <semester> <course_id>')
     parser.add_argument("user_name", help="student username")
     parser.add_argument("password", help="student password")
     parser.add_argument("id", help="student id")
+    parser.add_argument("year", help="exam year")
+    parser.add_argument("semester", help="semester")
     parser.add_argument("course_id", help="course id")
-    parser.add_argument("moed", help="insert 1 for moed A, 2 for moed B and 3 for moed C")
+    parser.add_argument("moed", help="insert 1 for moed A, 2 for moed B, 3 for moed C and 11 for Bochan")
     args = parser.parse_args()
     bot = GezerBot()  # init bot
     bot.open()  # connect to Gezer website
     bot.login(args.user_name, args.password, args.id)  # login
     bot.find_random_test()
-    bot.get_test(args.course_id, moed_validation(args.moed))  # download test
+    bot.get_test(args.course_id, moed_validation(args.moed), args.year, args.semester)  # download test
 
 
 if __name__ == "__main__":
     main()
+
