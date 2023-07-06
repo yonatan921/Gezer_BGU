@@ -91,7 +91,7 @@ def moed_validation(moed: str) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Gezer script, insert <user_name> <password> <id> <year> <semester> <course_id>')
+    parser = argparse.ArgumentParser(description='Gezer script, insert <user_name> <password> <id> <year> <semester> <course_id> <moed>')
     parser.add_argument("user_name", help="student username")
     parser.add_argument("password", help="student password")
     parser.add_argument("id", help="student id")
